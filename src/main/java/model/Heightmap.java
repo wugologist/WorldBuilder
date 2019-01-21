@@ -8,11 +8,11 @@ public class Heightmap implements IHeightmap {
     }
 
     public int get_width() {
-        return heights[0].length;
+        return heights.length;
     }
 
     public int get_height() {
-        return heights.length;
+        return heights[0].length;
     }
 
     @Override
