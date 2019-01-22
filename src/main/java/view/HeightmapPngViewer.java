@@ -19,10 +19,8 @@ public class HeightmapPngViewer implements IHeightmapViewer{
         int width = map.get_width();
         int height = map.get_height();
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 int rgb = 0x010101 * map.get_value(x, y);
                 image.setRGB(x, y, rgb);
             }
