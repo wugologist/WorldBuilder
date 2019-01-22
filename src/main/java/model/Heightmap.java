@@ -7,16 +7,16 @@ public class Heightmap implements IHeightmap {
         this.heights = heights;
     }
 
-    public int get_width() {
+    public int getMapWidth() {
         return heights.length;
     }
 
-    public int get_height() {
+    public int getMapHeight() {
         return heights[0].length;
     }
 
     @Override
-    public int get_value(int x, int y) {
+    public int getHeight(int x, int y) {
         return heights[x][y];
     }
 }

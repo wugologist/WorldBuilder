@@ -1,9 +1,8 @@
-import model.IHeightmap;
-import model.IHeightmapGenerator;
+import model.*;
 import model.settings.ImmutableWorldSettings;
-import model.RandomHeightmapGenerator;
 import view.HeightmapPngViewer;
-import view.IHeightmapViewer;
+import view.IMapViewer;
+import view.WorldMapViewer;
 
 public class WorldBuilder {
     public static void main(String[] args) {
@@ -13,8 +12,12 @@ public class WorldBuilder {
                 .height(1000)
                 .build();
         IHeightmapGenerator generator = new RandomHeightmapGenerator(settings);
-        IHeightmap map = generator.generate();
-        IHeightmapViewer viewer = new HeightmapPngViewer(map);
+        IHeightmap heightmap = generator.generate();
+        IMapViewer viewer = new HeightmapPngViewer(heightmap);
         viewer.view();
+
+        IWorldMap map = new WorldMap(heightmap, settings);
+        IMapViewer worldMapViewer = new WorldMapViewer(map, settings);
+        worldMapViewer.view();
     }
 }

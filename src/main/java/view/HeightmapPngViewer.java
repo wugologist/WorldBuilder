@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class HeightmapPngViewer implements IHeightmapViewer{
+public class HeightmapPngViewer implements IMapViewer {
     private IHeightmap map;
 
     public HeightmapPngViewer(IHeightmap map) {
@@ -16,12 +16,12 @@ public class HeightmapPngViewer implements IHeightmapViewer{
 
     @Override
     public void view() {
-        int width = map.get_width();
-        int height = map.get_height();
+        int width = map.getMapWidth();
+        int height = map.getMapHeight();
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int rgb = 0x010101 * map.get_value(x, y);
+                int rgb = 0x010101 * map.getHeight(x, y);
                 image.setRGB(x, y, rgb);
             }
         }

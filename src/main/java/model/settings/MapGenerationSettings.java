@@ -11,7 +11,7 @@ public interface MapGenerationSettings {
 
     @Value.Default
     default int sea_level() {
-        return 32;
+        return 128;
     }
 
     @Value.Default
