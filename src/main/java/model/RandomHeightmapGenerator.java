@@ -1,16 +1,21 @@
 package model;
 
-import model.noise.I3dNoiseGenerator;
-import model.noise.OpenSimplexNoise;
+import model.noise.I2dNoiseGenerator;
+import model.noise.Tilable2DSimplexNoise;
 import model.settings.ImmutableWorldSettings;
 
 public class RandomHeightmapGenerator implements IHeightmapGenerator {
     private final ImmutableWorldSettings worldSettings;
-    private final I3dNoiseGenerator noiseGenerator;
+    private final I2dNoiseGenerator noiseGenerator;
 
     public RandomHeightmapGenerator(ImmutableWorldSettings worldSettings) {
         this.worldSettings = worldSettings;
-        this.noiseGenerator = new OpenSimplexNoise(worldSettings.seed());
+//        this.noiseGenerator = new OpenSimplexNoiseTileable3D(
+//                worldSettings.seed(),
+//                worldSettings.xWrapping() ? worldSettings.width() / 6 : worldSettings.width(),
+//                100, 100, 1);
+//        this.noiseGenerator = new OpenSimplexNoise(worldSettings.seed());
+        this.noiseGenerator = new Tilable2DSimplexNoise(worldSettings.seed(), worldSettings.width(), worldSettings.height());
     }
 
     public IHeightmap generate() {

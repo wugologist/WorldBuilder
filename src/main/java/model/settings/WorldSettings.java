@@ -7,6 +7,7 @@ public interface WorldSettings {
     long seed();
     int height();
     int width();
+    boolean xWrapping();
 
     @Value.Default
     default ImmutableMapGenerationSettings mapGenerationSettings() {

@@ -10,6 +10,7 @@ public class WorldBuilder {
                 .seed(12345)
                 .width(1500)
                 .height(1000)
+                .xWrapping(true)
                 .build();
         IHeightmapGenerator generator = new RandomHeightmapGenerator(settings);
         IHeightmap heightmap = generator.generate();

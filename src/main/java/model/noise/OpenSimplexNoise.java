@@ -1,6 +1,6 @@
 package model.noise;
 
-// from https://gist.github.com/KdotJPG/b1270127455a94ac5d19
+// adapted from https://gist.github.com/KdotJPG/b1270127455a94ac5d19
 
 /*
  * OpenSimplex Noise in Java.
@@ -18,7 +18,7 @@ package model.noise;
  *   will be the same when ported to other languages.
  */
 
-public class OpenSimplexNoise implements I3dNoiseGenerator{
+public class OpenSimplexNoise implements I2dNoiseGenerator {
 
     private static final double STRETCH_CONSTANT_2D = -0.211324865405187;    //(1/Math.sqrt(2+1)-1)/2;
     private static final double SQUISH_CONSTANT_2D = 0.366025403784439;      //(Math.sqrt(2+1)-1)/2;
@@ -59,11 +59,11 @@ public class OpenSimplexNoise implements I3dNoiseGenerator{
         short[] source = new short[256];
         for (short i = 0; i < 256; i++)
             source[i] = i;
-        seed = seed * 6364136223846793005l + 1442695040888963407l;
-        seed = seed * 6364136223846793005l + 1442695040888963407l;
-        seed = seed * 6364136223846793005l + 1442695040888963407l;
+        seed = seed * 6364136223846793005L + 1442695040888963407L;
+        seed = seed * 6364136223846793005L + 1442695040888963407L;
+        seed = seed * 6364136223846793005L + 1442695040888963407L;
         for (int i = 255; i >= 0; i--) {
-            seed = seed * 6364136223846793005l + 1442695040888963407l;
+            seed = seed * 6364136223846793005L + 1442695040888963407L;
             int r = (int)((seed + 31) % (i + 1));
             if (r < 0)
                 r += (i + 1);
@@ -165,8 +165,8 @@ public class OpenSimplexNoise implements I3dNoiseGenerator{
                 xsv_ext = xsb;
                 ysv_ext = ysb;
             }
-            xsb += 1;
-            ysb += 1;
+            xsb += 1 % 100;
+            ysb += 1 % 100;
             dx0 = dx0 - 1 - 2 * SQUISH_CONSTANT_2D;
             dy0 = dy0 - 1 - 2 * SQUISH_CONSTANT_2D;
         }
