@@ -1,7 +1,8 @@
 package model;
 
+import model.noise.Cylindrical2DNoise;
 import model.noise.I2dNoiseGenerator;
-import model.noise.Tilable2DSimplexNoise;
+import model.noise.OpenSimplexNoise;
 import model.settings.ImmutableWorldSettings;
 
 public class RandomHeightmapGenerator implements IHeightmapGenerator {
@@ -10,12 +11,11 @@ public class RandomHeightmapGenerator implements IHeightmapGenerator {
 
     public RandomHeightmapGenerator(ImmutableWorldSettings worldSettings) {
         this.worldSettings = worldSettings;
-//        this.noiseGenerator = new OpenSimplexNoiseTileable3D(
-//                worldSettings.seed(),
-//                worldSettings.xWrapping() ? worldSettings.width() / 6 : worldSettings.width(),
-//                100, 100, 1);
-//        this.noiseGenerator = new OpenSimplexNoise(worldSettings.seed());
-        this.noiseGenerator = new Tilable2DSimplexNoise(worldSettings.seed(), worldSettings.width(), worldSettings.height());
+        this.noiseGenerator = worldSettings.xWrapping() ?
+                new Cylindrical2DNoise(
+                        worldSettings.seed(),
+                        (double) worldSettings.width() / worldSettings.mapGenerationSettings().scale())
+                : new OpenSimplexNoise(worldSettings.seed());
     }
 
     public IHeightmap generate() {
@@ -30,12 +30,13 @@ public class RandomHeightmapGenerator implements IHeightmapGenerator {
     }
 
     private int heightAtPoint(int x, int y) {
+        int iterations = 16;
         double maxAmplitude = 0;
         double amplitude = 1;
         double frequency = 1.0 / worldSettings.mapGenerationSettings().scale();
         double noise = 0;
 
-        for (int i=0; i<16; i++) {
+        for (int i = 0; i < iterations; i++) {
             noise += noiseGenerator.eval(x * frequency, y * frequency) * amplitude;
             maxAmplitude += amplitude;
             amplitude *= 0.5;
